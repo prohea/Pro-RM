@@ -18,15 +18,68 @@ function renderLicenseBadge(license) {
 
 //Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseLink(license) {}
+function renderLicenseLink(license) {
+    if (!license) {
+        return "";
+    }
+
+    if (license == "MIT") {
+        return "[MIT](https://opensource.org/licenses/MIT)";
+    } else if (license == "Mozilla") {
+        return "[Mozilla](https://opensource.org/licenses/MPL-2.0)"
+    } else if (license == "Eclipse") {
+        return "[Eclipse](https://opensource.org/licenses/EPL-1.0)"
+    } else if (license == "Apache") {
+        return "[Apache](https://opensource.org/licenses/Apache-2.0)"
+    }
+}
 
 //Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
+function renderLicenseSection(license) {
+    if (!license) {
+        return "";
+    }
+
+    return `
+    ## License
+    This application is covered under the ${license} license. More information can be found here: ${renderLicenseLink(license)}.
+    `
+}
 
 //Create a function to generate markdown for README
 function generateMarkdown(data) {
+    const url =`https://github.com/${data.name}`;
+    const tableofContentsUrl = `${url}/${data.title}/tree/main/dist#`;
   return `# ${data.title}
+
+  ${renderLicenseBadge(data.licenses)}
+  ## Description
+  ${data.description}
+
+  ## Table of Contents
+  [Installation](${tableofContentsUrl}installation)
+  [Usage](${tableofContentsUrl}usage)
+  [License](${tableofContentsUrl}license)
+  [Contributing](${tableofContentsUrl}contributing)
+  [Tests](${tableofContentsUrl}tests)
+  [Questions](${tableofContentsUrl}questions)
+
+  ## Installation
+  ${data.installation}
+
+  ## Usage
+  ${data.usage}
+
+  ## Contributing
+  ${data.contribution}
+
+  ## Tests
+  ${data.test}
+
+  ## Questions
+  This repo was created by: [${data.name}](${url}).
+  For questions, email: ${data.email}
 `;
 }
 
