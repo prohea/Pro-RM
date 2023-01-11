@@ -6,13 +6,13 @@ function renderLicenseBadge(license) {
 	let badge = "";
 
 	if (license == "MIT") {
-		return "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)";
+		return "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)"
 	} else if (license == "Mozilla") {
-		return "![License: MPL](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)";
+		return "![License: MPL](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)"
 	} else if (license == "Eclipse") {
-		return "![License: Eclipse](https://img.shields.io/badge/License-EPL_1.0-red.svg)";
+		return "![License: Eclipse](https://img.shields.io/badge/License-EPL_1.0-red.svg)"
 	} else if (license == "Apache") {
-		return "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)";
+		return "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)"
 	} else {
 		badge = "";
 	}
@@ -53,7 +53,10 @@ function renderLicenseSection(license) {
 
 //Create a function to generate markdown for README
 function generateMarkdown(data) {
-	return `# ${data.title}
+	return `
+  # ${data.title}
+
+  ## ${renderLicenseBadge(data.license)}
 
   ## **Description**
   ${data.description}
