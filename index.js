@@ -1,12 +1,70 @@
-// TODO: Include packages needed for this application
+//Include packages needed for this application
+const inquirer = require("inquirer");
+const fs = require("fs");
+const generateMarkdown = require("./util/genMd");
+const { reject } = require("lodash");
+const { resolve } = require("path/posix");
 
-// TODO: Create an array of questions for user input
-const questions = [];
+//Create an array of questions for user input
+const questions = [
+	{
+		type: "input",
+		name: "title",
+		message: "What is your project title?",
+	},
+    {
+		type: "input",
+		name: "description",
+		message: "Describe your project:",
+	},
+	{
+		type: "input",
+		name: "installation",
+		message: "Enter installation instructions:",
+	},
+    {
+		type: "input",
+		name: "usage",
+		message: "Enter usage information:",
+	},
+    {
+		type: "input",
+		name: "contribution",
+		message: "Enter contribution guidelines:",
+	},
+    {
+		type: "input",
+		name: "test",
+		message: "Enter test instructions:",
+	},
+    {
+		type: "list",
+		name: "licenses",
+		message: "Choose a license:",
+        choices: [
+            "MIT",
+            "Mozilla",
+            "Eclipse",
+            "Apache"
+        ]
+	},
+    {
+		type: "input",
+		name: "name",
+		message: "Enter your GitHub username:",
+	},
+    {
+		type: "input",
+		name: "email",
+		message: "Enter your email address:",
+	},
+   
+];
 
-// TODO: Create a function to write README file
+//Create a function to write README file
 function writeToFile(fileName, data) {}
 
-// TODO: Create a function to initialize app
+//Create a function to initialize app
 function init() {}
 
 // Function call to initialize app
