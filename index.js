@@ -2,11 +2,9 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const generateMarkdown = require("./util/genMd");
-const { reject } = require("lodash");
-const { resolve } = require("path/posix");
 
 //Create an array of questions for user input
-const questions = [
+inquirer.prompt([
 	{
 		type: "input",
 		name: "title",
@@ -53,7 +51,7 @@ const questions = [
 		name: "email",
 		message: "Enter your email address:",
 	},
-];
+]);
 
 //Create a function to write README file
 function writeToFile(fileName, data) {
