@@ -1,9 +1,9 @@
+const fs = require("fs");
+
 //Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
-	if (!license) {
-		return "";
-	}
+	let badge = "";
 
 	if (license == "MIT") {
 		return "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)";
@@ -13,15 +13,16 @@ function renderLicenseBadge(license) {
 		return "![License: Eclipse](https://img.shields.io/badge/License-EPL_1.0-red.svg)";
 	} else if (license == "Apache") {
 		return "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)";
+	} else {
+		badge = "";
 	}
+	return badge;
 }
 
 //Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-	if (!license) {
-		return "";
-	}
+	let licenseLink = "";
 
 	if (license == "MIT") {
 		return "[MIT](https://opensource.org/licenses/MIT)";
@@ -31,58 +32,76 @@ function renderLicenseLink(license) {
 		return "[Eclipse](https://opensource.org/licenses/EPL-1.0)";
 	} else if (license == "Apache") {
 		return "[Apache](https://opensource.org/licenses/Apache-2.0)";
+	} else {
+		licenseLink = "";
 	}
+	return licenseLink;
 }
 
 //Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-	if (!license) {
-		return "";
-	}
+	let licenseSection = "";
 
-	return `
-    ## License
-    This application is covered under the ${license} license. More information can be found here: ${renderLicenseLink(
-		license
-	)}.
-    `;
+	if (license === "None") {
+		licenseSection = "";
+	} else {
+		licenseSection = "License: ";
+	}
+	return licenseSection;
 }
 
 //Create a function to generate markdown for README
 function generateMarkdown(data) {
-	const url = `https://github.com/${data.name}`;
-	const contentsUrl = `${url}/${data.title}/tree/main/dist#`;
 	return `# ${data.title}
 
-  ${renderLicenseBadge(data.licenses)}
-  ${renderLicenseSection(data.license)}
-  ## Description
+  ## **Description**
   ${data.description}
 
-  ## Table of Contents
-  [Installation](${contentsUrl}installation)
-  [Usage](${contentsUrl}usage)
-  [License](${contentsUrl}license)
-  [Contributing](${contentsUrl}contributing)
-  [Tests](${contentsUrl}tests)
-  [Questions](${contentsUrl}questions)
+  <br/>
 
-  ## Installation
+  ## **Table of Contents**
+  <details>
+  <summary>Click to expand</summary>
+
+  ### [Installation](#Installation)
+  ### [Usage](#Usage)
+  ### [License](#License)
+  ### [Contributing](#Contributing)
+  ### [Tests](#Tests)
+  ### [Questions](#Questions)
+  </details>
+
+  <br/>
+
+  ## **Installation**
   ${data.installation}
 
-  ## Usage
+  <br/>
+
+  ## **Usage**
   ${data.usage}
 
-  ## Contributing
+  <br/>
+
+  ## **Contribution**
   ${data.contribution}
 
-  ## Tests
+  <br/>
+
+  ## **Tests**
   ${data.test}
 
-  ## Questions
-  This repo was created by: [${data.name}](${url}).
+  <br/>
+
+  ## **Questions**
+  This repo was created by: [${data.name}].
   For questions, email: ${data.email}
+
+  <br/>
+
+  ## **License**
+  ${renderLicenseSection(data.license)} ${renderLicenseLink(data.license)}
 `;
 }
 

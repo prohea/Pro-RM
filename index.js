@@ -54,14 +54,13 @@ const questions = [
 ];
 
 //Create a function to write README file
-function writeToFile(fileName, data) {
+function writeToFile(fileContent) {
 	return new Promise((resolve, reject) => {
-		fs.writeFile(fileName, data, (err) => {
+		fs.writeFile("README.md", fileContent, (err) => {
 			if (err) {
 				reject(err);
 				return;
 			}
-
 			resolve({
 				ok: true,
 				message: "File created!",
@@ -72,17 +71,12 @@ function writeToFile(fileName, data) {
 
 //Create a function to initialize app
 function init() {
-	return inquirer.prompt(questions);
+	inquirer.prompt(questions).then(function (userInput) {
+		console.log(userInput);
+		var readmeData = generateMarkdown(userInput);
+		writeToFile(readmeData);
+	});
 }
 
 // Function call to initialize app
-init()
-	.then((answers) => {
-		return writeToFile("./dist/README.md", generateMarkdown(answers));
-	})
-	.then((writeFileResponse) => {
-		console.log(writeFileResponse);
-	})
-	.catch((err) => {
-		console.log(err);
-	});
+init();
